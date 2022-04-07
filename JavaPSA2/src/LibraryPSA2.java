@@ -15,6 +15,8 @@ public class LibraryPSA2 {
 //    private UsersFile users = new UsersFile();
 //    private LoansFile loans = new LoansFile();
     private Handler handle = new Handler();
+    UsersFile usrPtr;
+    ItemsFile bookPtr;
     
     public static void main(String[] args) throws IOException {
         // TODO code application logic here
@@ -75,6 +77,7 @@ public class LibraryPSA2 {
                     
                     if (element.barcode.equals(itemBarcode)) {
                         item = true;
+                        bookPtr = element;
                         break;
                     }
                 }
@@ -89,11 +92,12 @@ public class LibraryPSA2 {
                     
                     if (aUser.userid.equals(userID_input)) {
                         user = true;
+                        usrPtr = aUser;
                         break;
                     }
                 }
                     
-                        System.out.println("User Found: " + user);
+                System.out.println("User Found: " + user);
                     
                     
                     if (user && item) 
@@ -103,7 +107,8 @@ public class LibraryPSA2 {
                 
                 
                 
-                
+                System.out.println(usrPtr);
+                System.out.println(bookPtr);
                 userInput = false;
                 menuInterface();
                 break;
