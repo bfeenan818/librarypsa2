@@ -1,5 +1,10 @@
 import java.io.IOException;
 import java.util.Scanner;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.ZoneId;
+import java.util.Date;
+
 
 
 
@@ -12,11 +17,13 @@ public class LibraryPSA2 {
 
     private Scanner myObj = new Scanner(System.in);
     private ItemsFile items = new ItemsFile();
-//    private UsersFile users = new UsersFile();
-//    private LoansFile loans = new LoansFile();
+    private UsersFile users = new UsersFile();
+    private LoansFile loans = new LoansFile();
+    
     private Handler handle = new Handler();
     UsersFile usrPtr;
     ItemsFile bookPtr;
+
     
     public static void main(String[] args) throws IOException {
         // TODO code application logic here
@@ -60,18 +67,15 @@ public class LibraryPSA2 {
                 Scanner ui = new Scanner(System.in);
                 
                 
-                //TEST DATA
-                String itemBarcode = "514284220";
-                String userID_input = "B00909463";
+                //TEST DATA                
+                System.out.println("Enter the barcode of the item you wish to loan out: ");
+                String itemBarcode = ui.nextLine();
+                System.out.println("Enter the User ID of the personyou wish to loan out to: ");
+                String userID_input = ui.nextLine();
+
                 System.out.println("Looking for Barcode: " + itemBarcode);
                 System.out.println("Looking for Usere: " + userID_input);
                 
-                //System.out.println("Enter the barcode of the item you wish to loan out: ");
-                //String itemBarcode = ui.nextLine();
-                
-                
-                //System.out.println("Enter the user id of the person loaning the item: ");
-                // userID_input = ui.nextLine();
                 boolean item = false;
                 for (ItemsFile element : handle.itemArrayList){
                     
@@ -96,7 +100,8 @@ public class LibraryPSA2 {
                         break;
                     }
                 }
-                    
+                
+                
                 System.out.println("User Found: " + user);
                     
                     
@@ -105,10 +110,30 @@ public class LibraryPSA2 {
                     
                     System.out.println("\n");
                 
+                int length = 0;
+                for (ItemsFile aType : handle.itemArrayList){
+                    
+                    if (bookPtr.type.equals("Book")) {
+                        System.out.println("This is a book.");
+                        length = 28;
+                        break;
+                    } else {
+                        System.out.println("This is multimedia");
+                        length = 7;
+                        break;
+                    }
+                }
+                
+                LocalDate issued = LocalDate.now();
+                DateTimeFormatter myFormatIssued = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+                String formattedDate = issued.format(myFormatIssued);
+                                
+                LocalDate dueDate = issued.plusDays(length);
+                
+                DateTimeFormatter myFormatDueDate = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+                String formattedDueDate = dueDate.format(myFormatIssued);
                 
                 
-                System.out.println(usrPtr);
-                System.out.println(bookPtr);
                 userInput = false;
                 menuInterface();
                 break;
