@@ -1,4 +1,3 @@
-
 import java.io.IOException;
 import java.util.Scanner;
 
@@ -55,35 +54,56 @@ public class LibraryPSA2 {
         while(userInput) {
             switch(input) {
                 case "1":
-                System.out.println("");
-                
-                System.out.println("");
-                
-                
-                
+                System.out.print("\n\n");
                 Scanner ui = new Scanner(System.in);
                 
-                System.out.println("Enter the barcode of the item you wish to loan out: ");
-                String itemBarcode = ui.nextLine();
                 
-                System.out.println("Enter the user id of the person loaning the item: ");
-                String userID_input = ui.nextLine();
+                //TEST DATA
+                String itemBarcode = "514284220";
+                String userID_input = "B00909463";
+                System.out.println("Looking for Barcode: " + itemBarcode);
+                System.out.println("Looking for Usere: " + userID_input);
                 
-//                for (int i = 0; i < handle.itemArrayList.size(); i++){
-//                    if (itemBarcode.equals(handle.itemArrayList.get(i))){
-//                        System.out.println("Item found.");
-//                    }
-//                    else{
-//                        System.out.println("Item not found");
-//                        }
-//                }
+                //System.out.println("Enter the barcode of the item you wish to loan out: ");
+                //String itemBarcode = ui.nextLine();
                 
-                if (handle.itemArrayList.contains(itemBarcode)){
-                    System.out.print("Item Found.");
-                } else {
-                    System.out.println("Item not Found.");     
-                       }
+                
+                //System.out.println("Enter the user id of the person loaning the item: ");
+                // userID_input = ui.nextLine();
+                boolean item = false;
+                for (ItemsFile element : handle.itemArrayList){
+                    
+                    if (element.barcode.equals(itemBarcode)) {
+                        item = true;
+                        break;
+                    }
+                }
+                    
+                System.out.println("Item Found: " + item);
+                    
                         
+                    
+                    
+                boolean user = false;
+                for (UsersFile aUser : handle.userArrayList){
+                    
+                    if (aUser.userid.equals(userID_input)) {
+                        user = true;
+                        break;
+                    }
+                }
+                    
+                        System.out.println("User Found: " + user);
+                    
+                    
+                    if (user && item) 
+                        System.out.println("Both Found");
+                    
+                    System.out.println("\n");
+                
+                
+                
+                
                 userInput = false;
                 menuInterface();
                 break;
